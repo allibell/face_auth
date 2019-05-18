@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
-print("fr_0")
 import PIL.Image
-print("fr_1")
 import dlib
-print("fr_2")
 import numpy as np
 from PIL import ImageFile
 
