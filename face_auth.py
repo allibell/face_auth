@@ -39,6 +39,8 @@ fps = FPS().start()
 # Keep track of whether someone has been authenticated
 authenticated = False
 
+frameCounter = 0
+
 # loop over frames from the video file stream
 while True:
     # grab the frame from the threaded video stream and resize it
@@ -112,11 +114,18 @@ while True:
     key = cv2.waitKey(1) & 0xFF
 
     # if the `q` key was pressed, break from the loop
-    if key == ord("q"):
+    if key == ord('q'):
         break
+    else :
+        print(key)
     
-        # update the FPS counter
+    # update the FPS counter
     fps.update()
+
+    # After 30 frames, print FPS info (debug) 
+    frameCounter += 1
+    if frameCounter == 30 :
+        break
 
 # stop the timer and display FPS information
 fps.stop()
