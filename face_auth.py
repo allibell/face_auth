@@ -39,8 +39,6 @@ fps = FPS().start()
 # Keep track of whether someone has been authenticated
 authenticated = False
 
-frameCounter = 0
-
 # loop over frames from the video file stream
 while True:
     # grab the frame from the threaded video stream and resize it
@@ -121,12 +119,7 @@ while True:
     # update the FPS counter
     fps.update()
 
-    # After 30 frames, print FPS info (debug) 
-    frameCounter += 1
-    if frameCounter == 30 :
-        break
-
-# stop the timer and display FPS information
+    # stop the timer and display FPS information
 fps.stop()
 print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
