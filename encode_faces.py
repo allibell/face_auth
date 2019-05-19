@@ -1,8 +1,8 @@
 # USAGE
 # When encoding on laptop/desktop with more memory (more accurate)
-# python encode_faces.py --dataset dataset --encodings encodings.pickle --detection-method cnn
+# python encode_faces.py --users users --encodings encodings.pickle --detection-method cnn
 # When encoding on Raspberry Pi (faster, pretty accurate):
-# python encode_faces.py --dataset dataset --encodings encodings.pickle --detection-method hog
+# python encode_faces.py --users users --encodings encodings.pickle --detection-method hog
 
 # import the necessary packages
 from imutils import paths
@@ -28,14 +28,15 @@ print("[INFO] quantifying faces...")
 imagePaths = list(paths.list_images(args["users"]))
 
 # initialize the list of known encodings and known names
+allUsers = users.get_all_users()
 knownEncodings = []
-knownUsers = users.get_all_users()
+knownUsers = []
 # knownNames = []
 
 # loop over the image paths
-for (i, user) in enumerate(knownUsers):
+for (i, user) in enumerate(allUsers):
     print("[INFO] processing user {}/{}".format(i + 1,
-        len(knownUsers)))
+        len(allUsers)))
     name = users.get_name_from_id(user)
     
     for imagePath in users.get_pictures_from_id(user) :
@@ -55,9 +56,10 @@ for (i, user) in enumerate(knownUsers):
 
         # loop over the encodings
         for encoding in encodings:
-            # add each encoding + name to our set of known names and
+            # add each encoding + user(name) to our lists of known users and
             # encodings
             knownEncodings.append(encoding)
+            knownUsers.append(user)
             # knownNames.append(name)
 
 # dump the facial encodings + names to disk
