@@ -25,16 +25,15 @@ args = vars(ap.parse_args())
 
 # grab the paths to the input images in our dataset
 print("[INFO] quantifying faces...")
-imagePaths = list(paths.list_images(args["dataset"]))
+imagePaths = list(paths.list_images(args["users"]))
 
 # initialize the list of known encodings and known names
 knownEncodings = []
 knownUsers = users.get_all_users()
-
+# knownNames = []
 
 # loop over the image paths
 for (i, user) in enumerate(knownUsers):
-    # extract the person name from the image path
     print("[INFO] processing user {}/{}".format(i + 1,
         len(knownUsers)))
     name = users.get_name_from_id(user)
@@ -59,7 +58,7 @@ for (i, user) in enumerate(knownUsers):
             # add each encoding + name to our set of known names and
             # encodings
             knownEncodings.append(encoding)
-            knownNames.append(name)
+            # knownNames.append(name)
 
 # dump the facial encodings + names to disk
 print("[INFO] serializing encodings...")
