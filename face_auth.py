@@ -1,13 +1,11 @@
 # USAGE
 # python pi_face_recognition.py --cascade haarcascade_frontalface_default.xml --encodings encodings.pickle
-print("0")
 # import the necessary packages
 from imutils.video import VideoStream
-print("1")
 from imutils.video import FPS
-print("2")
+print("Importing face_recognition module...")
 from face_recognition import face_recognition
-print("3")
+print("Finished importing face_recognition module")
 import users
 import argparse
 import imutils
@@ -34,6 +32,7 @@ print("[INFO] starting video stream...")
 vs = VideoStream(usePiCamera=True).start()
 time.sleep(2.0)
 
+print("Started video stream")
 # start the FPS counter
 fps = FPS().start()
 
@@ -45,26 +44,25 @@ while True:
     # grab the frame from the threaded video stream and resize it
     # to 500px (to speedup processing)
     frame = vs.read()
-    frame = imutils.resize(frame, width=500)
+    frame = imutils.resize(frame, width=500, inter=cv2.INTER_NEAREST)
     
-    # convert the input frame from (1) BGR to grayscale (for face
+        # convert the input frame from (1) BGR to grayscale (for face
     # detection) and (2) from BGR to RGB (for face recognition)
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-
-    # detect faces in the grayscale frame
+    
+        # detect faces in the grayscale frame
     rects = detector.detectMultiScale(gray, scaleFactor=1.1, 
         minNeighbors=5, minSize=(30, 30),
         flags=cv2.CASCADE_SCALE_IMAGE)
-
-    # OpenCV returns bounding box coordinates in (x, y, w, h) order
+        # OpenCV returns bounding box coordinates in (x, y, w, h) order
     # but we need them in (top, right, bottom, left) order, so we
     # need to do a bit of reordering
     boxes = [(y, x + w, y + h, x) for (x, y, w, h) in rects]
 
     # compute the facial embeddings for each face bounding box
     encodings = face_recognition.face_encodings(rgb, boxes)
-    users = []
+    names = []
 
     # loop over the facial embeddings
     for encoding in encodings:
@@ -116,8 +114,8 @@ while True:
     # if the `q` key was pressed, break from the loop
     if key == ord("q"):
         break
-
-    # update the FPS counter
+    
+        # update the FPS counter
     fps.update()
 
 # stop the timer and display FPS information
