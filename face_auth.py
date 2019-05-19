@@ -25,7 +25,7 @@ args = vars(ap.parse_args())
 # cascade for face detection
 print("[INFO] loading encodings + face detector...")
 data = pickle.loads(open(args["encodings"], "rb").read())
-print(data)
+print(data["users"])
 detector = cv2.CascadeClassifier(args["cascade"])
 
 # initialize the video stream and allow the camera sensor to warm up
@@ -85,6 +85,7 @@ while True:
             # loop over the matched indexes and maintain a count for
             # each recognized face 
             for i in matchedIdxs:
+                print(i)
                 user = data["users"][i]
                 counts[user] = counts.get(user, 0) + 1
 
