@@ -112,13 +112,11 @@ while True:
     # display the image to our screen
     cv2.namedWindow("Frame", cv2.WINDOW_NORMAL)
     cv2.imshow("Frame", frame)
-    key = cv2.waitKey(1) & 0xFF
 
     # if the `q` key was pressed, break from the loop
+    key = cv2.waitKey(1) & 0xFF
     if key == ord('q'):
         break
-    else :
-        print(key)
     
     # update the FPS counter
     fps.update()
