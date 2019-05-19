@@ -110,6 +110,7 @@ while True:
             0.75, (0, 255, 0), 2)
 
     # display the image to our screen
+    cv2.namedWindow("Frame", cv2.WINDOW_NORMAL)
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(1) & 0xFF
 
