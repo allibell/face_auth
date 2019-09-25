@@ -47,16 +47,16 @@ while True:
         frame = vs.read()
         frame = imutils.resize(frame, width=500, inter=cv2.INTER_NEAREST)
         
-            # convert the input frame from (1) BGR to grayscale (for face
+        # convert the input frame from (1) BGR to grayscale (for face
         # detection) and (2) from BGR to RGB (for face recognition)
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         
-            # detect faces in the grayscale frame
+        # detect faces in the grayscale frame
         rects = detector.detectMultiScale(gray, scaleFactor=1.1, 
             minNeighbors=5, minSize=(30, 30),
             flags=cv2.CASCADE_SCALE_IMAGE)
-            # OpenCV returns bounding box coordinates in (x, y, w, h) order
+        # OpenCV returns bounding box coordinates in (x, y, w, h) order
         # but we need them in (top, right, bottom, left) order, so we
         # need to do a bit of reordering
         boxes = [(y, x + w, y + h, x) for (x, y, w, h) in rects]
